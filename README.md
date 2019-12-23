@@ -1,2 +1,5 @@
 # VHProgressBar
-C# port of ios VHProgressBar. Vertical and Horizontal ProgressBar
+The VHProgressBar is vertical and horizontal animated progress bar.
+
+
+![gauge_view](Images/progressAnimation.gif)
