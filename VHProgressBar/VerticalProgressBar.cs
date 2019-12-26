@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -14,7 +15,7 @@ namespace VHProgressBar
         bool isAnimating;
 
         public VerticalProgressBar()
-        {            
+        {
             InitProgressView();
         }
 
@@ -31,6 +32,30 @@ namespace VHProgressBar
             set
             {
                 bgColor = value;
+                ConfigureView();
+            }
+        }
+
+        UIColor startColor = UIColor.Clear;
+        [Export(nameof(StartColor)), Browsable(true)]
+        public UIColor StartColor
+        {
+            get => startColor;
+            set
+            {
+                startColor = value;
+                ConfigureView();
+            }
+        }
+
+        UIColor endColor = UIColor.Clear;
+        [Export(nameof(EndColor)), Browsable(true)]
+        public UIColor EndColor
+        {
+            get => endColor;
+            set
+            {
+                endColor = value;
                 ConfigureView();
             }
         }
@@ -110,6 +135,7 @@ namespace VHProgressBar
 
         private void ConfigureView()
         {
+            SetGradientBackground();
             BackgroundColor = BGColor;
             Layer.BorderWidth = FrameBold;
             Layer.BorderColor = FrameColor.CGColor;
@@ -156,7 +182,7 @@ namespace VHProgressBar
             {
                 SetAnimationRepeatCount(1000);
                 SetAnimationRepeatAutoreverses(reverse);
-                progressView.Frame =  new CGRect(progressView.Frame.Location, new CGSize(progressView.Frame.Size.Width, progressView.Frame.Size.Height - PGHeight));
+                progressView.Frame = new CGRect(progressView.Frame.Location, new CGSize(progressView.Frame.Size.Width, progressView.Frame.Size.Height - PGHeight));
             }, null);
             isAnimating = true;
             animator.StartAnimation();
@@ -172,5 +198,22 @@ namespace VHProgressBar
         }
 
         public nfloat GetProgress() => progressView.Frame.Size.Height;
+
+        private void SetGradientBackground()
+        {
+            if (StartColor!=UIColor.Clear && EndColor!=UIColor.Clear)
+            {
+                var gradient = new CAGradientLayer
+                {
+                    Frame = Bounds,
+                    Colors = new CGColor[] { StartColor.CGColor, EndColor.CGColor },
+                    CornerRadius = PGWidth / 2
+                };
+
+                Layer.InsertSublayer(gradient, 0);
+            }
+            
+        }
+
     }
 }

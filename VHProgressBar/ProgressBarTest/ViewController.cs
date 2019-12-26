@@ -25,12 +25,14 @@ namespace ProgressBarTest
             verticalProgressBar.Frame = new CGRect(new CGPoint(100, 100), verticalProgressBar.Frame.Size);
             verticalProgressBar.FrameBold = 0.5f;
             verticalProgressBar.BGColor = UIColor.Green;
+            verticalProgressBar.StartColor = UIColor.Yellow;
+            verticalProgressBar.EndColor = UIColor.Blue;
             verticalProgressBar.BarColor = UIColor.Red;
             verticalProgressBar.FrameColor = UIColor.Black;
 
             horizontalProgressBar.Frame = new CGRect(new CGPoint(100, 500), horizontalProgressBar.Frame.Size);
             horizontalProgressBar.FrameBold = 0.1f;
-            horizontalProgressBar.BGColor = UIColor.Yellow;
+            horizontalProgressBar.BGColor = UIColor.Yellow;            
             horizontalProgressBar.BarColor = UIColor.Blue ;
             horizontalProgressBar.FrameColor = UIColor.Black;
 
@@ -40,7 +42,7 @@ namespace ProgressBarTest
 
             // start repeat animation
             // you can choose type "normal" or "reverse"
-            //horizontalProgressBar.StartAnimation(type: "normal", duration: 2.0f);
+            //verticalProgressBar.StartAnimation(type: "reverse", duration: 2.0f);
             //stop repeat animation  
             //horizontalProgressBar.StopAnimation();
         }
